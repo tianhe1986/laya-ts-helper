@@ -31,7 +31,13 @@ module tianhe1986{
 		}
 
 		constructor(){
-
+			switch (GlobalConfig.platform) {
+				case Platform.QQ:
+					this._rewardedVideoImpl = new RewardedVideoImplQQ();
+					break;
+				default:
+					break;
+			}
 		}
 
 		public start(loadSuccessHandler: Laya.Handler = null, _loadFailedHandler: Laya.Handler = null):void
