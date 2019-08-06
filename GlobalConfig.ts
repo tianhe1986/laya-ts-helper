@@ -5,9 +5,10 @@ module tianhe1986{
 		BAIDU, // 百度
 		TOUTIAO, // 头条
 		VIVO, // vivo
+		WEB, //
 	}
 
 	export class GlobalConfig{
-		public static readonly platform:number = Platform.WEIXIN;
+		public static platform:number = Platform.WEIXIN;
 	}
 }

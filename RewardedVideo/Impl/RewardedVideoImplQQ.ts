@@ -11,6 +11,8 @@ module tianhe1986{
 			//开发工具，跳过
 			let systemInfo = Laya.Browser.window.qq.getSystemInfoSync();
 			if (systemInfo.platform === 'devtools') {
+				RewardedVideoManager.instance.isLoadFailed = true;
+				RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.run();
 				return;
 			}
 
