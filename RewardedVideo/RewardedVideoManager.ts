@@ -98,7 +98,7 @@ module tianhe1986{
 		}
 
 		//播放激励视频
-		public showVideo(successHandler: Laya.Handler, failedHandler: Laya.Handler = null):void
+		public showVideo(successHandler: Laya.Handler, failedHandler: Laya.Handler = null, errorHandler: Laya.Handler = null):void
 		{
 			if (this._isLoadFailed) {
 				failedHandler && failedHandler.run();
@@ -108,7 +108,7 @@ module tianhe1986{
 			this._playSuccessHandler = successHandler;
 			this._playFailedHandler = failedHandler;
 
-			this._rewardedVideoImpl.show(this._isLoadFailed === null);
+			this._rewardedVideoImpl.show(this._isLoadFailed === null, errorHandler);
 		}
 	}
 }

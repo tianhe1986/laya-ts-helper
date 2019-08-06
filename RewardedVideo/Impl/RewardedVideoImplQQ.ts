@@ -51,7 +51,7 @@ module tianhe1986{
 			}
 		}
 
-		public show(needLoad: boolean):void
+		public show(needLoad: boolean = false, errorHandler: Laya.Handler = null):void
 		{
 			//开发工具，直接失败处理
 			let systemInfo = Laya.Browser.window.qq.getSystemInfoSync();
@@ -67,11 +67,13 @@ module tianhe1986{
 						return this._rewardedVideoAd.show();
 					})
 					.catch((err) => {
+						errorHandler && errorHandler.run();
 						RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
 					});
 				} else {
 					this._rewardedVideoAd.show()
 					.catch((err) => {
+						errorHandler && errorHandler.run();
 						RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
 					});
 				}
