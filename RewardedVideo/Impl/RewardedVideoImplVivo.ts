@@ -2,23 +2,28 @@
 * name 
 */
 module FatLayaHelper{
-	export class RewardedVideoImplQQ implements RewardedVideoImpl{
+	export class RewardedVideoImplVivo implements RewardedVideoImpl{
 
 		private _rewardedVideoAd:any = null;
 		
+		// 上次加载时间, vivo广告限制一分钟内只能请求一次, 需要进行处理
+		// TODO 以后的版本会取消限制? 根据版本进行区分
+		private _lastLoadTime:number = 0;
+
 		public create(videoId:string):void
 		{
-			//开发工具，跳过
-			let systemInfo = Laya.Browser.window.qq.getSystemInfoSync();
-			if (systemInfo.platform === 'devtools') {
+			//不支持激励视频
+			if (Laya.Browser.window.qg.createRewardedVideoAd == undefined) {
 				RewardedVideoManager.instance.isLoadFailed = true;
 				RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.run();
 				return;
 			}
 
-			this._rewardedVideoAd = Laya.Browser.window.qq.createRewardedVideoAd({
-				adUnitId: videoId
+			this._rewardedVideoAd = qg.createRewardedVideoAd({
+				posId: videoId
 			});
+
+			this._lastLoadTime = Date.now();
 
 			this._rewardedVideoAd.onLoad(() => {
 				//加载成功
@@ -27,15 +32,15 @@ module FatLayaHelper{
 			});
 
 			this._rewardedVideoAd.onClose((res) =>{
-				RewardedVideoManager.instance.isLoadFailed = null;
-
 				if (res.isEnded) {
 					RewardedVideoManager.instance.playSuccessHandler && RewardedVideoManager.instance.playSuccessHandler.run();
 				} else {
 					RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
 				}
-				
-				//点击关闭会自动拉取下一条，等待即可
+
+				//需要手工去取下一条
+				RewardedVideoManager.instance.isLoadFailed = null;
+				this.load();
 			});
 
 			this._rewardedVideoAd.onError((err) =>{
@@ -47,30 +52,37 @@ module FatLayaHelper{
 		public load():void
 		{
 			if (this._rewardedVideoAd) {
-				this._rewardedVideoAd.load();
+				if (Date.now() - this._lastLoadTime > 60000) { //一分钟的限制
+					this._rewardedVideoAd.load();
+					this._lastLoadTime = Date.now();
+				} else {
+					RewardedVideoManager.instance.isLoadFailed = true;
+					RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.run();
+				}
 			}
 		}
 
 		public show(needLoad: boolean = false, errorHandler: Laya.Handler = null):void
 		{
-			//开发工具，直接失败处理
-			let systemInfo = Laya.Browser.window.qq.getSystemInfoSync();
-			if (systemInfo.platform === 'devtools') {
+			//不支持激励视频
+			if (Laya.Browser.window.qg.createRewardedVideoAd == undefined) {
 				RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
 				return;
 			}
 
 			if (this._rewardedVideoAd) {
 				if (needLoad) {
-					let loadPromise = this._rewardedVideoAd.load();
-					if (loadPromise) {
-						loadPromise.then(() => {
+					if (Date.now() - this._lastLoadTime > 60000) {
+						this._rewardedVideoAd.load().
+						then(() => {
 							return this._rewardedVideoAd.show();
 						})
 						.catch((err) => {
 							errorHandler && errorHandler.run();
 							RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
 						});
+
+						this._lastLoadTime = Date.now();
 					} else {
 						RewardedVideoManager.instance.isLoadFailed = true;
 						RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.run();

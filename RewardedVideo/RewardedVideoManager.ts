@@ -35,6 +35,8 @@ module FatLayaHelper{
 				case Platform.QQ:
 					this._rewardedVideoImpl = new RewardedVideoImplQQ();
 					break;
+				case Platform.VIVO:
+					this._rewardedVideoImpl = new RewardedVideoImplVivo();
 				default:
 					break;
 			}
