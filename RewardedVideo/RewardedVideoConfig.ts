@@ -1,7 +1,7 @@
 /**
 * RewaredVideoConfig 
 */
-module tianhe1986{
+module FatLayaHelper{
 	export class RewardedVideoConfig{
 		
 		public static videoId:string = ""; // 因为是全局单例，只需要一个id即可

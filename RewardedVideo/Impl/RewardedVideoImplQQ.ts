@@ -1,7 +1,7 @@
 /**
 * name 
 */
-module tianhe1986{
+module FatLayaHelper{
 	export class RewardedVideoImplQQ implements RewardedVideoImpl{
 
 		private _rewardedVideoAd:any = null;

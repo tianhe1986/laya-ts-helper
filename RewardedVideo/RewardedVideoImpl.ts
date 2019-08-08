@@ -1,7 +1,7 @@
 /**
 * name 
 */
-module tianhe1986{
+module FatLayaHelper{
 	export interface RewardedVideoImpl{
 		create(videoId:string);
 		load();

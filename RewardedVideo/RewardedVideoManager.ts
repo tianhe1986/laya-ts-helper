@@ -1,7 +1,7 @@
 /**
 * RewardedVideoManager
 */
-module tianhe1986{
+module FatLayaHelper{
 	export class RewardedVideoManager{
 		//全局单例
 		private static _instance: RewardedVideoManager = null;

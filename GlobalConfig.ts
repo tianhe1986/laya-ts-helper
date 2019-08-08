@@ -1,4 +1,4 @@
-module tianhe1986{
+module FatLayaHelper{
 	export enum Platform {
 		WEIXIN = 1,  //微信
 		QQ, // QQ
