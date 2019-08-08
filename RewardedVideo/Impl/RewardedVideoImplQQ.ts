@@ -62,14 +62,22 @@ module FatLayaHelper{
 
 			if (this._rewardedVideoAd) {
 				if (needLoad) {
-					this._rewardedVideoAd.load()
-					.then(() => {
-						return this._rewardedVideoAd.show();
-					})
-					.catch((err) => {
+					let loadPromise = this._rewardedVideoAd.load();
+					if (loadPromise) {
+						loadPromise.then(() => {
+							return this._rewardedVideoAd.show();
+						})
+						.catch((err) => {
+							errorHandler && errorHandler.run();
+							RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
+						});
+					} else {
+						RewardedVideoManager.instance.isLoadFailed = true;
+						RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.run();
+
 						errorHandler && errorHandler.run();
 						RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
-					});
+					}
 				} else {
 					this._rewardedVideoAd.show()
 					.catch((err) => {
