@@ -6,6 +6,8 @@ module FatLayaHelper{
 		//全局单例
 		private static _instance: RewardedVideoManager = null;
 
+		private _hasStarted: boolean = false;
+
 		// 广告拉取成功时的回调处理
 		private _loadSuccessHandler: Laya.Handler = null;
 		// 广告拉取失败时的回调处理
@@ -46,6 +48,11 @@ module FatLayaHelper{
 		{
 			this._loadSuccessHandler = loadSuccessHandler;
 			this._loadFailedHandler = _loadFailedHandler;
+
+			if (this._hasStarted) {
+				return;
+			}
+			this._hasStarted = true;
 
 			this._rewardedVideoImpl.create(RewardedVideoConfig.videoId);
 			Laya.timer.loop(RewardedVideoConfig.reloadInterval, this, this.reload);

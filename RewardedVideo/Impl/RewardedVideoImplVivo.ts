@@ -19,7 +19,7 @@ module FatLayaHelper{
 				return;
 			}
 
-			this._rewardedVideoAd = qg.createRewardedVideoAd({
+			this._rewardedVideoAd = Laya.Browser.window.qg.createRewardedVideoAd({
 				posId: videoId
 			});
 
