@@ -34,12 +34,20 @@ module FatLayaHelper{
 
 		constructor(){
 			switch (GlobalConfig.platform) {
+				case Platform.WEIXIN:
+					this._rewardedVideoImpl = new RewardedVideoImplWx();
+					break;
 				case Platform.QQ:
 					this._rewardedVideoImpl = new RewardedVideoImplQQ();
 					break;
+				case Platform.BAIDU:
+					this._rewardedVideoImpl = new RewardedVideoImplBaidu();
+					break;
 				case Platform.VIVO:
 					this._rewardedVideoImpl = new RewardedVideoImplVivo();
+					break;
 				default:
+					this._rewardedVideoImpl = new RewardedVideoImplWeb();
 					break;
 			}
 		}
