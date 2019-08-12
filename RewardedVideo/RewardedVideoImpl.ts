@@ -3,8 +3,8 @@
 */
 module FatLayaHelper{
 	export interface RewardedVideoImpl{
-		create(videoId:string);
-		load();
-		show(needLoad: boolean, errorHandler: Laya.Handler);
+		create(videoId:string):void;
+		load():void;
+		show(needLoad: boolean, errorHandler: Laya.Handler):void;
 	}
 }
