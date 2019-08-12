@@ -54,7 +54,7 @@ module FatLayaHelper{
 			}
 			this._hasStarted = true;
 
-			this._rewardedVideoImpl.create(RewardedVideoConfig.videoId);
+			this._rewardedVideoImpl.create(RewardedVideoConfig.videoId, RewardedVideoConfig.spId);
 			Laya.timer.loop(RewardedVideoConfig.reloadInterval, this, this.reload);
 		}
 

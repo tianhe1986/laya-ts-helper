@@ -10,7 +10,7 @@ module FatLayaHelper{
 		// TODO 以后的版本会取消限制? 根据版本进行区分
 		private _lastLoadTime:number = 0;
 
-		public create(videoId:string):void
+		public create(videoId:string, spId:string):void
 		{
 			//不支持激励视频
 			if (Laya.Browser.window.qg.createRewardedVideoAd == undefined) {

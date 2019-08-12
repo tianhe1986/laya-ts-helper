@@ -6,7 +6,7 @@ module FatLayaHelper{
 
 		private _rewardedVideoAd:any = null;
 		
-		public create(videoId:string):void
+		public create(videoId:string, spId:string):void
 		{
 			//开发工具，跳过
 			let systemInfo = Laya.Browser.window.qq.getSystemInfoSync();

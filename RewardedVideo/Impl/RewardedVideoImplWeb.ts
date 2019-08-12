@@ -7,7 +7,7 @@ module FatLayaHelper{
 
 		}
 
-		public create(videoId:string):void
+		public create(videoId:string, spId:string):void
 		{
 			// 根本创建不了一郎
 		}
