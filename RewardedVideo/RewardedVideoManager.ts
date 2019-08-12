@@ -118,6 +118,7 @@ module FatLayaHelper{
 		public showVideo(successHandler: Laya.Handler, failedHandler: Laya.Handler = null, errorHandler: Laya.Handler = null):void
 		{
 			if (this._isLoadFailed) {
+				errorHandler && errorHandler.run();
 				failedHandler && failedHandler.run();
 				return;
 			}
