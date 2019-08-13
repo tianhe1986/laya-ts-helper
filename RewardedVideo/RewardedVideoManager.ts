@@ -46,6 +46,9 @@ module FatLayaHelper{
 				case Platform.VIVO:
 					this._rewardedVideoImpl = new RewardedVideoImplVivo();
 					break;
+				case Platform.TOUTIAO:
+					this._rewardedVideoImpl = new RewardedVideoImplTT();
+					break;
 				default:
 					this._rewardedVideoImpl = new RewardedVideoImplWeb();
 					break;
