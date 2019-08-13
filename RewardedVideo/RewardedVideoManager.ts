@@ -55,10 +55,10 @@ module FatLayaHelper{
 			}
 		}
 
-		public start(loadSuccessHandler: Laya.Handler = null, _loadFailedHandler: Laya.Handler = null):void
+		public start(loadSuccessHandler: Laya.Handler = null, loadFailedHandler: Laya.Handler = null):void
 		{
 			this._loadSuccessHandler = loadSuccessHandler;
-			this._loadFailedHandler = _loadFailedHandler;
+			this._loadFailedHandler = loadFailedHandler;
 
 			if (this._hasStarted) {
 				return;
