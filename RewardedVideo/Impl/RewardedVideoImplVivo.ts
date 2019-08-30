@@ -38,8 +38,8 @@ module FatLayaHelper{
 					RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
 				}
 
-				//需要手工去取下一条
-				RewardedVideoManager.instance.isLoadFailed = null;
+				// vivo 的一分钟只能请求一次，竟然不是针对拉取，而是针对展示， 很无奈， 那就， 关闭的时候重新计时好了
+				this._lastLoadTime = Date.now();
 				this.load();
 			});
 
