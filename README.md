@@ -39,3 +39,26 @@ public showVideo(successHandler: Laya.Handler, failedHandler: Laya.Handler = nul
 * 用户完整观看了视频，会调用`successHandler`。
 * 用户未完整观看，提前关闭，会调用`failedHandler`。
 * 播放视频发生错误。会调用`errorHandler`和`failedHandler`。
+
+# 插屏广告
+目前暂时只看到微信和vivo支持插屏广告， 其他平台会在之后陆续增加。使用步骤如下：
+1. 将`GlobalConfig.ts`和`InterstitialAd`文件夹拷贝至项目源码目录中，建议新建一个`Helper`文件夹用于放置。
+2. 更改配置，有如下两项：
+    * `GlobalConfig.ts`。修改`platform`变量，用于指定使用的平台。
+    * `InterstitialAd/InterstitialAd.ts`。修改`globalInterval`变量，用于指定全局的展示间隔时间，即展示一条后，再过多久，下一条才可以展示。`singleInterval`指定单条广告的
+    间隔时间，即同一ID的广告，展示一条后，再过多久才可以展示下一条。
+3. 在需要展示插屏广告时调用
+```
+let successHandler:Laya.Handler = XXX;
+let failHandler:Laya.Handler = XXX;
+
+let adId:string = XXXX;
+FatLayaHelper.InterstitialAdManager.instance.showInterstitial(adId, successHandler, failHandler);
+```
+
+showInterstitial函数定义如下：
+```
+public showInterstitial(adId:string, successHandler: Laya.Handler, failedHandler: Laya.Handler = null):void
+```
+
+`adId`是相应的广告ID，`successHandler`是展示成功后的回调， `failedHandler`是展示失败时的回调。
