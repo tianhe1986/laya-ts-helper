@@ -77,7 +77,7 @@ module FatLayaHelper{
 
 					// 展示次数到了，需要刷新
 					this._implInstanceMap[adId][2]--;
-					if (this._implInstanceMap[adId][2] < 0) {
+					if (this._implInstanceMap[adId][2] <= 0) {
 						break;
 					}
 
