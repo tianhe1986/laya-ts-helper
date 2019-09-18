@@ -12,7 +12,7 @@ module FatLayaHelper{
 				style: {}
 			});
 
-			this._bannerAd.onResize((res) => {
+			this._bannerAd.onSize((res) => {
 				//TODO 
 			});
 		}
