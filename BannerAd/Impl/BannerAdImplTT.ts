@@ -6,9 +6,15 @@ module FatLayaHelper{
 		private _bannerAd:any = null;
 
 		constructor(adId:string, style:Object) {
+			let width:number = style["width"];
+			if (width < 128) {
+				width = 128;
+			} else if (width > 208) {
+				width = 208;
+			}
 			// 宽高比默认是 16 : 9
-			let height:number = style["width"] * 9 / 16;
-			let left:number = style["left"] ? style["left"] : (BannerAdManager.instance.systemInfo.systemWidth - style["width"])/2;
+			let height:number = width * 9 / 16;
+			let left:number = style["left"] ? style["left"] : (BannerAdManager.instance.systemInfo.systemWidth - width)/2;
 			let top:number = style["top"] ? style["top"] : (BannerAdManager.instance.systemInfo.systemHeight - height);
 
 			this._bannerAd = Laya.Browser.window.tt.createBannerAd({
@@ -16,12 +22,15 @@ module FatLayaHelper{
 				style: {
 					left: left,
 					top: top,
-					width: style["width"]
+					width: width
 				}
 			});
 
 			this._bannerAd.onResize((res) => {
-				//TODO 
+				let left:number = style["left"] ? style["left"] : (BannerAdManager.instance.systemInfo.systemWidth - res.width)/2;
+				let top:number = style["top"] ? style["top"] : (BannerAdManager.instance.systemInfo.systemHeight - res.height);
+				this._bannerAd.style.left = left;
+				this._bannerAd.style.top = top;
 			});
 		}
 
