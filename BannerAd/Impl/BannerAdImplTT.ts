@@ -27,6 +27,9 @@ module FatLayaHelper{
 			});
 
 			this._bannerAd.onResize((res) => {
+				if (res.height == 0) { //头条极速版会出现height为0这样莫名其妙的问题
+					return;
+				}
 				let left:number = style["left"] ? style["left"] : (BannerAdManager.instance.systemInfo.systemWidth - res.width)/2;
 				let top:number = style["top"] ? style["top"] : (BannerAdManager.instance.systemInfo.systemHeight - res.height);
 				this._bannerAd.style.left = left;

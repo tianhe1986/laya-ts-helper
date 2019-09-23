@@ -1,6 +1,25 @@
 # laya-ts-helper
 一些帮助库 for Layabox，typescript版
 
+# Banner广告
+只需要传入宽度，广告展示方式为底部居中对齐。
+
+之后的版本会增加自定义位置及自定义resize回调处理。使用步骤如下：
+1. 展示时用:
+```
+let adId:string = XXXX;
+let width = XXXX;
+FatLayaHelper.BannerAdManager.instance.showBanner(adId, width);
+```
+
+注意这里的width是是以逻辑像素为单位的宽度。
+
+2. 隐藏时用：
+```
+let adId:string = XXXX;
+FatLayaHelper.BannerAdManager.instance.hideBanner(adId);
+```
+
 # 激励视频播放管理
 目前接入的各小游戏平台(微信,QQ,百度,头条,vivo), 激励视频都是全局单例, 因此也只需要管理一个实例即可。使用步骤如下：
 1. 将`GlobalConfig.ts`和`RewardedVideo`文件夹拷贝至项目源码目录中，建议新建一个`Helper`文件夹用于放置。
