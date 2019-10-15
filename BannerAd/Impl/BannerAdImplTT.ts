@@ -27,7 +27,7 @@ module FatLayaHelper{
 			});
 
 			this._bannerAd.onResize((res) => {
-				if (res.height == 0) { //头条极速版会出现height为0这样莫名其妙的问题
+				if (res.height <= res.width / 4) { //头条极速版会出现height为0，西瓜视频会出现height突然变小这样莫名其妙的问题
 					return;
 				}
 				let left:number = style["left"] ? style["left"] : (BannerAdManager.instance.systemInfo.systemWidth - res.width)/2;
