@@ -22,7 +22,11 @@ module FatLayaHelper{
 		private _stopHandler: Laya.Handler = null;
 
 		constructor(){
-
+			switch (GlobalConfig.platform) {
+				default:
+					this._gameRecorderImpl = new GameRecorderImplWeb();
+					break;
+			}
 		}
 
 		public get startHandler():Laya.Handler
