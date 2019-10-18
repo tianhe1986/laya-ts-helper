@@ -24,6 +24,9 @@ module FatLayaHelper{
 		// 录屏重置处理回调
 		private _clearHandler: Laya.Handler = null;
 
+		// 录屏错误处理回调
+		private _errorHandler: Laya.Handler = null;
+
 		public static get instance() {
 			if (! this._instance) {
 				this._instance = new GameRecorderManager();
@@ -93,6 +96,16 @@ module FatLayaHelper{
 		public onResume(handler: Laya.Handler):void
 		{
 			this._resumeHandler = handler;
+		}
+
+		public get errorHandler():Laya.Handler
+		{
+			return this._errorHandler;
+		}
+
+		public onError(handler: Laya.Handler):void
+		{
+			this._errorHandler = handler;
 		}
 
 		// 开始录制
