@@ -21,8 +21,24 @@ module FatLayaHelper{
 		// 录屏停止处理回调
 		private _stopHandler: Laya.Handler = null;
 
+		// 录屏重置处理回调
+		private _clearHandler: Laya.Handler = null;
+
+		public static get instance() {
+			if (! this._instance) {
+				this._instance = new GameRecorderManager();
+			}
+			return this._instance;
+		}
+
 		constructor(){
 			switch (GlobalConfig.platform) {
+				case Platform.BAIDU:
+					this._gameRecorderImpl = new GameRecorderImplBaidu();
+					break;
+				case Platform.TOUTIAO:
+					this._gameRecorderImpl = new GameRecorderImplTT();
+					break;
 				default:
 					this._gameRecorderImpl = new GameRecorderImplWeb();
 					break;
@@ -47,6 +63,16 @@ module FatLayaHelper{
 		public onStop(handler: Laya.Handler):void
 		{
 			this._stopHandler = handler;
+		}
+
+		public get clearHandler():Laya.Handler
+		{
+			return this._clearHandler;
+		}
+
+		public onClear(handler: Laya.Handler):void
+		{
+			this._clearHandler = handler;
 		}
 
 		public get pauseHandler():Laya.Handler
@@ -79,6 +105,11 @@ module FatLayaHelper{
 		public stopRecord(): void
 		{
 			this._gameRecorderImpl.stop();
+		}
+
+		public clearRecord():void
+		{
+			this._gameRecorderImpl.clear();
 		}
 
 		// 暂停

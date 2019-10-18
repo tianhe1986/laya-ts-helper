@@ -2,9 +2,9 @@
 * name 
 */
 module FatLayaHelper{
-	export class GameRecorderImplBaidu implements GameRecorderImpl{
+	export class GameRecorderImplBaidu extends GameRecorderImplBase{
 		constructor(){
-
+            super();
 		}
 
 		public start(duration: number): void
