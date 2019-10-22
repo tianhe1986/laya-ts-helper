@@ -12,6 +12,10 @@ module FatLayaHelper{
 
         protected init():void
         {
+            if (Laya.Browser.window.swan.getVideoRecorderManager == undefined) {
+                return;
+            }
+
             this.recorderInstance = Laya.Browser.window.swan.getVideoRecorderManager();
 
             // 录制开始事件监听
@@ -75,6 +79,9 @@ module FatLayaHelper{
 
 		public start(duration: number): void
 		{
+            if (this.recorderInstance == null) {
+                return;
+            }
             // 当前未在录制状态， 则处理
             switch (this.state) {
                 case GameRecorderState.NONE:
@@ -93,6 +100,9 @@ module FatLayaHelper{
 
 		public stop(): void
 		{
+            if (this.recorderInstance == null) {
+                return;
+            }
             // 当前在录制状态， 则处理
             switch (this.state) {
                 case GameRecorderState.RECORDING:
@@ -111,6 +121,9 @@ module FatLayaHelper{
 
         public clear(): void
         {
+            if (this.recorderInstance == null) {
+                return;
+            }
             this.needClear = true;
             // 不在录制或暂停状态，直接清理，否则，调用stop，当停止录制时进行清理
             switch (this.state) {
@@ -137,16 +150,25 @@ module FatLayaHelper{
 
 		public pause(): void
 		{
+            if (this.recorderInstance == null) {
+                return;
+            }
             this.recorderInstance.pause();
 		}
 
 		public resume(): void
 		{
+            if (this.recorderInstance == null) {
+                return;
+            }
             this.recorderInstance.resume();
 		}
 
 		public clip(before: number, after: number): void
 		{
+            if (this.recorderInstance == null) {
+                return;
+            }
             this.recorderInstance.recordClip({
                 timeRange: [before, after],
                 success: (res) => { //剪辑成功
@@ -158,7 +180,7 @@ module FatLayaHelper{
 		public share(successHandler: Laya.Handler, failedHandler: Laya.Handler):void
 		{
 			//检查录制状态和视频地址
-            if (this.state != GameRecorderState.DONE || this.videoPath == "") {
+            if (this.recorderInstance == null || this.state != GameRecorderState.DONE || this.videoPath == "") {
                 this.showTip("视频未录制完成");
                 failedHandler && failedHandler.run();
                 return;
