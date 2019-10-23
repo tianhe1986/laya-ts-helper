@@ -81,3 +81,5 @@ public showInterstitial(adId:string, successHandler: Laya.Handler, failedHandler
 ```
 
 `adId`是相应的广告ID，`successHandler`是展示成功后的回调， `failedHandler`是展示失败时的回调。
+
+# 录屏处理(TODO)
