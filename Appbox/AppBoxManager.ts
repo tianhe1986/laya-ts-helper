@@ -43,10 +43,10 @@ module FatLayaHelper{
 			}
 		}
 
-		public start(loadSuccessHandler: Laya.Handler = null, _loadFailedHandler: Laya.Handler = null):void
+		public start(loadSuccessHandler: Laya.Handler = null, loadFailedHandler: Laya.Handler = null):void
 		{
 			this._loadSuccessHandler = loadSuccessHandler;
-			this._loadFailedHandler = _loadFailedHandler;
+			this._loadFailedHandler = loadFailedHandler;
 
 			this._appBoxImpl.create(AppBoxConfig.appBoxId);
 			Laya.timer.loop(AppBoxConfig.reloadInterval, this, this.reload);
@@ -111,7 +111,7 @@ module FatLayaHelper{
 		}
 
 		//展示盒子广告
-		public showAppBox(successHandler: Laya.Handler, failedHandler: Laya.Handler = null, errorHandler: Laya.Handler = null, closeHandler: Laya.Handler = null):void
+		public showAppBox(successHandler: Laya.Handler, failedHandler: Laya.Handler = null, closeHandler: Laya.Handler = null):void
 		{
 			if (this._isLoadFailed) {
 				failedHandler && failedHandler.run();
@@ -122,7 +122,7 @@ module FatLayaHelper{
 			this._showFailedHandler = failedHandler;
 			this._closeHandler = closeHandler;
 
-			this._appBoxImpl.show(this._isLoadFailed === null, errorHandler);
+			this._appBoxImpl.show(this._isLoadFailed === null);
 		}
 	}
 }

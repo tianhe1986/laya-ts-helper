@@ -3,7 +3,7 @@
 */
 module FatLayaHelper{
 	export interface AppBoxImpl{
-		create(videoId:string);
+		create(appBoxId:string);
 		load();
 		show(needLoad: boolean, errorHandler: Laya.Handler);
         destroy();
