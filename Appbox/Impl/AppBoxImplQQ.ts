@@ -21,7 +21,12 @@ module FatLayaHelper{
 		public load():void
 		{
 			if (this._appBox) {
-				this._appBox.load();
+				this._appBox.load().then(()=>{
+					AppBoxManager.instance.loadSuccessHandler && AppBoxManager.instance.loadSuccessHandler.run();
+				})
+				.catch(()=>{
+					AppBoxManager.instance.loadFailedHandler && AppBoxManager.instance.loadFailedHandler.run();
+				})
 			}
 		}
 
@@ -31,6 +36,7 @@ module FatLayaHelper{
 				if (needLoad) {
 					let loadPromise = this._appBox.load();
 					if (loadPromise) {
+						AppBoxManager.instance.loadSuccessHandler && AppBoxManager.instance.loadSuccessHandler.run();
 						loadPromise.then(() => {
 							return this._appBox.show().then(()=>{
 								AppBoxManager.instance.showSuccessHandler && AppBoxManager.instance.showSuccessHandler.run();
