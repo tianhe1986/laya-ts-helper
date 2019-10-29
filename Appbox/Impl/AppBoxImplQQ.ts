@@ -13,7 +13,6 @@ module FatLayaHelper{
 			});
 
 			this._appBox.onClose(() =>{
-				AppBoxManager.instance.isLoadFailed = null;
 				AppBoxManager.instance.closeHandler && AppBoxManager.instance.closeHandler.run();
 			});
 		}
