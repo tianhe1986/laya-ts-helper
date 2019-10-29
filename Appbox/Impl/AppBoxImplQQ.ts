@@ -37,7 +37,7 @@ module FatLayaHelper{
 					if (loadPromise) {
 						AppBoxManager.instance.loadSuccessHandler && AppBoxManager.instance.loadSuccessHandler.run();
 						loadPromise.then(() => {
-							return this._appBox.show().then(()=>{
+							this._appBox.show().then(()=>{
 								AppBoxManager.instance.showSuccessHandler && AppBoxManager.instance.showSuccessHandler.run();
 							});
 						})
