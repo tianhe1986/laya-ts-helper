@@ -82,6 +82,7 @@ public showInterstitial(adId:string, successHandler: Laya.Handler, failedHandler
 
 `adId`是相应的广告ID，`successHandler`是展示成功后的回调， `failedHandler`是展示失败时的回调。
 
+
 # 盒子广告
 暂时只看到QQ平台支持盒子广告。使用步骤如下：
 1. 将`GlobalConfig.ts`和`Appbox`文件夹拷贝至项目源码目录中，建议新建一个`Helper`文件夹用于放置。
@@ -118,3 +119,79 @@ public showAppBox(successHandler: Laya.Handler, failedHandler: Laya.Handler = nu
 ```
 
 其中`successHandler`是展示成功后的回调，`failedHandler`是展示失败后的回调，`closeHandler`是用户点击`关闭广告`按钮后的回调。
+
+# 录屏处理
+目前暂时只有头条和百度支持录屏。使用步骤如下：
+1. 将`GlobalConfig.ts`和`GameRecorder`文件夹拷贝至项目源码目录中，建议新建一个`Helper`文件夹用于放置。
+2. 根据需要初始化监听事件，示例如下：
+```
+// 监听录屏开始事件
+FatLayaHelper.GameRecorderManager.instance.onStart(Laya.Handler.create(this, () => {
+    
+}, [], false));
+
+// 监听录屏停止（完成）事件
+FatLayaHelper.GameRecorderManager.instance.onStop(Laya.Handler.create(this, () => {
+    
+}, [], false));
+
+// 监听录屏清除事件，清除是指停止当前录制，同时也清空已经录制的视频地址
+FatLayaHelper.GameRecorderManager.instance.onClear(Laya.Handler.create(this, () => {
+    
+}, [], false));
+
+// 监听录屏暂停事件
+FatLayaHelper.GameRecorderManager.instance.onPause(Laya.Handler.create(this, () => {
+    
+}, [], false));
+
+// 监听录屏恢复事件
+FatLayaHelper.GameRecorderManager.instance.onResume(Laya.Handler.create(this, () => {
+    
+}, [], false));
+
+// 监听录屏错误事件
+FatLayaHelper.GameRecorderManager.instance.onError(Laya.Handler.create(this, () => {
+    
+}, [], false));
+```
+
+3. 开始录屏
+```
+let duration = 30; // 录屏时间，单位为秒
+FatLayaHelper.GameRecorderManager.instance.startRecord(duration);
+```
+
+4. 录屏期间的操作，如暂停，恢复，裁剪片段
+```
+// 暂停
+FatLayaHelper.GameRecorderManager.instance.pauseRecord();
+
+// 继续
+FatLayaHelper.GameRecorderManager.instance.resumeRecord();
+
+// 裁剪片段，以调用时的录屏时刻为基准，指定前x秒，后y秒为将要裁剪的片段
+let x = 2;
+let y = 3;
+FatLayaHelper.GameRecorderManager.instance.clipRecord(x, y);
+```
+
+5. 停止录屏
+```
+FatLayaHelper.GameRecorderManager.instance.stopRecord();
+```
+
+6. 录屏分享，分享成功后会自动清除
+```
+// 分享成功回调
+let successCallback: Laya.Handler = Laya.Handler.create(this, () => {
+    
+});
+
+// 分享失败回调
+let failCallback: Laya.Handler = Laya.Handler.create(this, () => {
+    
+});
+
+FatLayaHelper.GameRecorderManager.instance.shareRecord(successCallback, failCallback);
+```
