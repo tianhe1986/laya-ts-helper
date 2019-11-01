@@ -39,7 +39,7 @@ module FatLayaHelper{
 				if (res.isEnded) {
 					RewardedVideoManager.instance.playSuccessHandler && RewardedVideoManager.instance.playSuccessHandler.run();
 				} else {
-					RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
+					RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.runWith({errMsg: "close before end"});
 				}
 				
 				//点击关闭会自动拉取下一条，等待即可
@@ -63,7 +63,7 @@ module FatLayaHelper{
 			//开发工具，直接失败处理
 			let systemInfo = Laya.Browser.window.swan.getSystemInfoSync();
 			if (systemInfo.platform === 'devtools') {
-				RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
+				RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.runWith({errMsg: "fail for devtools"});
 				return;
 			}
 
@@ -76,24 +76,24 @@ module FatLayaHelper{
 						})
 						.catch((err) => {
 							errorHandler && errorHandler.run();
-							RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
+							RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.runWith(err);
 						});
 					} else {
 						RewardedVideoManager.instance.isLoadFailed = true;
 						RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.runWith({errMsg: "load promise error"});
 
 						errorHandler && errorHandler.run();
-						RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
+						RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.runWith({errMsg: "load promise error"});
 					}
 				} else {
 					this._rewardedVideoAd.show()
 					.catch((err) => {
 						errorHandler && errorHandler.run();
-						RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
+						RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.runWith(err);
 					});
 				}
 			} else {
-				RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
+				RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.runWith({errMsg: "no rewarded video instance"});
 				return;
 			}
 		}

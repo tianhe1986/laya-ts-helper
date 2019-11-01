@@ -48,8 +48,14 @@ public start(loadSuccessHandler: Laya.Handler = null, loadFailedHandler: Laya.Ha
 
 4. 在需要播放激励视频时调用
 ```
-let successHandler:Laya.Handler = XXX;
-let failHandler:Laya.Handler = XXX;
+let successHandler:Laya.Handler = Laya.Handler.create(this, () => {
+    
+});
+
+let failHandler:Laya.Handler = Laya.Handler.create(this, (err) => {
+    console.log(err);
+});
+
 let errorHandler = XXX;
 
 FatLayaHelper.RewardedVideoManager.instance.showVideo(successHandler, failHandler, errorHandler);

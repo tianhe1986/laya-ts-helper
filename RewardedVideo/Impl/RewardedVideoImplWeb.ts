@@ -20,7 +20,7 @@ module FatLayaHelper{
 		public show(needLoad: boolean, errorHandler: Laya.Handler):void
 		{
 			// 直接失败就好
-			RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
+			RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.runWith({errMsg: "web no rewarded video"});
 		}
 	}
 }

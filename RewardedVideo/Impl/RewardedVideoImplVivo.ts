@@ -35,7 +35,7 @@ module FatLayaHelper{
 				if (res.isEnded) {
 					RewardedVideoManager.instance.playSuccessHandler && RewardedVideoManager.instance.playSuccessHandler.run();
 				} else {
-					RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
+					RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.runWith({errMsg: "close before end"});
 				}
 
 				// vivo 的一分钟只能请求一次，竟然不是针对拉取，而是针对展示， 很无奈， 那就， 关闭的时候重新计时好了
@@ -66,7 +66,7 @@ module FatLayaHelper{
 		{
 			//不支持激励视频
 			if (Laya.Browser.window.qg.createRewardedVideoAd == undefined) {
-				RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
+				RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.runWith({errMsg: "nor support"});
 				return;
 			}
 
@@ -79,7 +79,7 @@ module FatLayaHelper{
 						})
 						.catch((err) => {
 							errorHandler && errorHandler.run();
-							RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
+							RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.runWith(err);
 						});
 
 						this._lastLoadTime = Date.now();
@@ -88,17 +88,17 @@ module FatLayaHelper{
 						RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.runWith({errMsg: "load promise error"});
 
 						errorHandler && errorHandler.run();
-						RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
+						RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.runWith({errMsg: "load promise error"});
 					}
 				} else {
 					this._rewardedVideoAd.show()
 					.catch((err) => {
 						errorHandler && errorHandler.run();
-						RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
+						RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.runWith(err);
 					});
 				}
 			} else {
-				RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
+				RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.runWith({errMsg: "no rewarded video instance"});
 				return;
 			}
 		}
