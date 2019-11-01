@@ -56,7 +56,9 @@ let failHandler:Laya.Handler = Laya.Handler.create(this, (err) => {
     console.log(err);
 });
 
-let errorHandler = XXX;
+let errorHandler = Laya.Handler.create(this, (err) => {
+    console.log(err);
+});
 
 FatLayaHelper.RewardedVideoManager.instance.showVideo(successHandler, failHandler, errorHandler);
 ```

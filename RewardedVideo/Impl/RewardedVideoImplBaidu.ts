@@ -75,20 +75,20 @@ module FatLayaHelper{
 							return this._rewardedVideoAd.show();
 						})
 						.catch((err) => {
-							errorHandler && errorHandler.run();
+							errorHandler && errorHandler.runWith(err);
 							RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.runWith(err);
 						});
 					} else {
 						RewardedVideoManager.instance.isLoadFailed = true;
 						RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.runWith({errMsg: "load promise error"});
 
-						errorHandler && errorHandler.run();
+						errorHandler && errorHandler.runWith({errMsg: "load promise error"});
 						RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.runWith({errMsg: "load promise error"});
 					}
 				} else {
 					this._rewardedVideoAd.show()
 					.catch((err) => {
-						errorHandler && errorHandler.run();
+						errorHandler && errorHandler.runWith(err);
 						RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.runWith(err);
 					});
 				}
