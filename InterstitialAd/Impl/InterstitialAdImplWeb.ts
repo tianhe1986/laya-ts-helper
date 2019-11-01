@@ -13,7 +13,7 @@ module FatLayaHelper{
 		public show(successHandler: Laya.Handler, failedHandler: Laya.Handler):void
 		{
 			//web 直接失败
-			failedHandler && failedHandler.run();
+			failedHandler && failedHandler.runWith({errMsg: "web no interstitial ad"});
 		}
 
 		public getAdId():string

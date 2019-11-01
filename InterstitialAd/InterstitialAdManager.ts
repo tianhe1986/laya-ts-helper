@@ -54,13 +54,13 @@ module FatLayaHelper{
 			let timeNow:number = Date.now();
 			//比较全局展示间隔
 			if (timeNow < this.getGlobalNextShowTime()) {
-				failedHandler && failedHandler.run();
+				failedHandler && failedHandler.runWith({errMsg: "exceed global show time limit"});
 				return;
 			}
 
 			//比较广告实例展示间隔
 			if (timeNow < this.getSingleNextShowTime(adId)) {
-				failedHandler && failedHandler.run();
+				failedHandler && failedHandler.runWith({errMsg: "exceed single show time limit"});
 				return;
 			}
 

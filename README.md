@@ -82,10 +82,15 @@ public showVideo(successHandler: Laya.Handler, failedHandler: Laya.Handler = nul
     间隔时间，即同一ID的广告，展示一条后，再过多久才可以展示下一条。
 3. 在需要展示插屏广告时调用
 ```
-let successHandler:Laya.Handler = XXX;
-let failHandler:Laya.Handler = XXX;
+let successHandler:Laya.Handler = Laya.Handler.create(this, () => {
+    
+});
 
-let adId:string = XXXX;
+let failHandler:Laya.Handler = Laya.Handler.create(this, (err) => {
+    console.log(err);
+});
+
+let adId:string = "XXXXXX";
 FatLayaHelper.InterstitialAdManager.instance.showInterstitial(adId, successHandler, failHandler);
 ```
 

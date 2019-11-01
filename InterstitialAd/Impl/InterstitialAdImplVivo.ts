@@ -32,14 +32,14 @@ module FatLayaHelper{
 		public show(successHandler: Laya.Handler, failedHandler: Laya.Handler):void
 		{
 			if (this._interstitialAd === null) {
-				failedHandler && failedHandler.run();
+				failedHandler && failedHandler.runWith({errMsg: "no interstitial ad instance"});
 				return;
 			}
 
 			this._successHandler = successHandler;
 
 			this._interstitialAd.show().catch((err) => {
-				failedHandler && failedHandler.run();
+				failedHandler && failedHandler.runWith(err);
 			});
 		}
 
