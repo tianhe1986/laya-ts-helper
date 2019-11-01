@@ -28,8 +28,14 @@ FatLayaHelper.BannerAdManager.instance.hideBanner(adId);
     * `RewardedVideo/RewardedVideoConfig.ts`， 填写激励视频ID`videoId`。如果是百度平台，还需要填`spId`。`reloadInterval`是加载失败时，尝试重新加载的间隔时间，可根据需要进行调整。激励视频ID也可以动态设置，但是要在初始化之前才行。
 3. 初始化激励视频
 ```
-let loadSuccessHandler = XXXX;
-let loadFailedHandler = XXXX;
+let loadSuccessHandler = Laya.Handler.create(this, () => {
+    
+}, [], false);
+
+let loadFailedHandler = Laya.Handler.create(this, (err) => {
+    console.log(err);
+}, [], false);
+
 FatLayaHelper.RewardedVideoManager.instance.start(loadSuccessHandler, loadFailedHandler);
 ```
 
@@ -38,7 +44,7 @@ start函数的定义如下:
 public start(loadSuccessHandler: Laya.Handler = null, loadFailedHandler: Laya.Handler = null):void
 ```
 
-`loadSuccessHandler`是激励视频拉取成功时的回调函数，`loadFailedHandler`是激励视频拉取失败时的回调函数。
+`loadSuccessHandler`是激励视频拉取成功时的回调函数，`loadFailedHandler`是激励视频拉取失败时的回调函数,会带上错误信息进行回调。
 
 4. 在需要播放激励视频时调用
 ```

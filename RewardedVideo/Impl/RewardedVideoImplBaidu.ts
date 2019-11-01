@@ -11,14 +11,14 @@ module FatLayaHelper{
 			let systemInfo = Laya.Browser.window.swan.getSystemInfoSync();
 			if (systemInfo.platform === 'devtools') {
 				RewardedVideoManager.instance.isLoadFailed = true;
-				RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.run();
+				RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.runWith({errMsg: "skip for devtools"});
 				return;
 			}
 
 			//对于百度，必须有appSid
 			if (typeof spId != "string") {
 				RewardedVideoManager.instance.isLoadFailed = true;
-				RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.run();
+				RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.runWith({errMsg: "baidu must set spId"});
 				return;
 			}
 			
@@ -47,7 +47,7 @@ module FatLayaHelper{
 
 			this._rewardedVideoAd.onError((err) =>{
 				RewardedVideoManager.instance.isLoadFailed = true;
-				RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.run();
+				RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.runWith(err);
 			});
 		}
 
@@ -80,7 +80,7 @@ module FatLayaHelper{
 						});
 					} else {
 						RewardedVideoManager.instance.isLoadFailed = true;
-						RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.run();
+						RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.runWith({errMsg: "load promise error"});
 
 						errorHandler && errorHandler.run();
 						RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();

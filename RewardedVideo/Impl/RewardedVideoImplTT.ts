@@ -11,7 +11,7 @@ module FatLayaHelper{
 			let systemInfo = Laya.Browser.window.tt.getSystemInfoSync();
 			if (systemInfo.platform === 'devtools') {
 				RewardedVideoManager.instance.isLoadFailed = true;
-				RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.run();
+				RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.runWith({errMsg: "skip for devtools"});
 				return;
 			}
 
@@ -39,7 +39,7 @@ module FatLayaHelper{
 
 			this._rewardedVideoAd.onError((err) =>{
 				RewardedVideoManager.instance.isLoadFailed = true;
-				RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.run();
+				RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.runWith(err);
 			});
 		}
 
@@ -72,7 +72,7 @@ module FatLayaHelper{
 						});
 					} else {
 						RewardedVideoManager.instance.isLoadFailed = true;
-						RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.run();
+						RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.runWith({errMsg: "load promise error"});
 
 						errorHandler && errorHandler.run();
 						RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();

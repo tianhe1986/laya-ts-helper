@@ -15,7 +15,7 @@ module FatLayaHelper{
 			//不支持激励视频
 			if (Laya.Browser.window.qg.createRewardedVideoAd == undefined) {
 				RewardedVideoManager.instance.isLoadFailed = true;
-				RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.run();
+				RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.runWith({errMsg: "nor support"});
 				return;
 			}
 
@@ -45,7 +45,7 @@ module FatLayaHelper{
 
 			this._rewardedVideoAd.onError((err) =>{
 				RewardedVideoManager.instance.isLoadFailed = true;
-				RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.run();
+				RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.runWith(err);
 			});
 		}
 
@@ -57,7 +57,7 @@ module FatLayaHelper{
 					this._lastLoadTime = Date.now();
 				} else {
 					RewardedVideoManager.instance.isLoadFailed = true;
-					RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.run();
+					RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.runWith({errMsg: "load twice in less than 1 minute"});
 				}
 			}
 		}
@@ -85,7 +85,7 @@ module FatLayaHelper{
 						this._lastLoadTime = Date.now();
 					} else {
 						RewardedVideoManager.instance.isLoadFailed = true;
-						RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.run();
+						RewardedVideoManager.instance.loadFailedHandler && RewardedVideoManager.instance.loadFailedHandler.runWith({errMsg: "load promise error"});
 
 						errorHandler && errorHandler.run();
 						RewardedVideoManager.instance.playFailedsHandler && RewardedVideoManager.instance.playFailedsHandler.run();
