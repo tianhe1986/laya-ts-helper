@@ -113,8 +113,8 @@ FatLayaHelper.GameRecorderManager.instance.onResume(Laya.Handler.create(this, ()
 }, [], false));
 
 // 监听录屏错误事件
-FatLayaHelper.GameRecorderManager.instance.onError(Laya.Handler.create(this, () => {
-    
+FatLayaHelper.GameRecorderManager.instance.onError(Laya.Handler.create(this, (err) => {
+    console.log(err);
 }, [], false));
 ```
 
@@ -151,8 +151,8 @@ let successCallback: Laya.Handler = Laya.Handler.create(this, () => {
 });
 
 // 分享失败回调
-let failCallback: Laya.Handler = Laya.Handler.create(this, () => {
-    
+let failCallback: Laya.Handler = Laya.Handler.create(this, (err) => {
+    console.log(err);
 });
 
 FatLayaHelper.GameRecorderManager.instance.shareRecord(successCallback, failCallback);
