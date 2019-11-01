@@ -162,7 +162,7 @@ module FatLayaHelper{
 			//检查录制状态和视频地址
             if (this.state != GameRecorderState.DONE || this.videoPath == "") {
                 this.showTip("视频未录制完成");
-                failedHandler && failedHandler.runWith(null);
+                failedHandler && failedHandler.runWith({errMsg: "fail video not record"});
                 return;
             }
 
