@@ -55,7 +55,7 @@ module FatLayaHelper{
             // 错误事件监听
             this.recorderInstance.onError((res) => {
                 this.clear();
-                GameRecorderManager.instance.errorHandler && GameRecorderManager.instance.errorHandler.runWith(res)
+                GameRecorderManager.instance.errorHandler && GameRecorderManager.instance.errorHandler.runWith(res);
             });
         }
 
@@ -162,7 +162,7 @@ module FatLayaHelper{
 			//检查录制状态和视频地址
             if (this.state != GameRecorderState.DONE || this.videoPath == "") {
                 this.showTip("视频未录制完成");
-                failedHandler && failedHandler.run();
+                failedHandler && failedHandler.runWith(null);
                 return;
             }
 
@@ -182,7 +182,7 @@ module FatLayaHelper{
                     if (e.errMsg == "fail video duration is too short") {
                         this.showTip("视频未录制完成");
                     }
-                    failedHandler && failedHandler.run();
+                    failedHandler && failedHandler.runWith(e);
                 }
             })
 		}

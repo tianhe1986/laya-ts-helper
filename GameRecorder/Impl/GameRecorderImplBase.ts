@@ -62,7 +62,7 @@ module FatLayaHelper{
 
 		public share(successHandler: Laya.Handler, failedHandler: Laya.Handler):void
 		{
-			failedHandler && failedHandler.run();
+			failedHandler && failedHandler.runWith(null);
 		}
 	}
 }
