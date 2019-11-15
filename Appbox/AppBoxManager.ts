@@ -39,6 +39,7 @@ module FatLayaHelper{
 					this._appBoxImpl = new AppBoxImplQQ();
 					break;
 				default:
+					this._appBoxImpl = new AppBoxImplWeb();
 					break;
 			}
 		}
