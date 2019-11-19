@@ -35,14 +35,17 @@ module FatLayaHelper{
 				if (needLoad) {
 					let loadPromise = this._appBox.load();
 					if (loadPromise) {
-						AppBoxManager.instance.loadSuccessHandler && AppBoxManager.instance.loadSuccessHandler.run();
 						loadPromise.then(() => {
+							AppBoxManager.instance.loadSuccessHandler && AppBoxManager.instance.loadSuccessHandler.run();
 							this._appBox.show().then(()=>{
 								AppBoxManager.instance.showSuccessHandler && AppBoxManager.instance.showSuccessHandler.run();
-							});
+							})
+							.catch((err)=>{
+								AppBoxManager.instance.showFailedsHandler && AppBoxManager.instance.showFailedsHandler.run();
+							})
 						})
 						.catch((err) => {
-							AppBoxManager.instance.showFailedsHandler && AppBoxManager.instance.showFailedsHandler.run();
+							AppBoxManager.instance.loadFailedHandler && AppBoxManager.instance.loadFailedHandler.run();
 						});
 					} else {
 						AppBoxManager.instance.isLoadFailed = true;
