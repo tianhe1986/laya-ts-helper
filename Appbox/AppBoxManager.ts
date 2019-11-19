@@ -111,8 +111,8 @@ module FatLayaHelper{
 			}
 		}
 
-		//展示盒子广告
-		public showAppBox(successHandler: Laya.Handler, failedHandler: Laya.Handler = null, closeHandler: Laya.Handler = null):void
+		//展示盒子广告,如果需要关闭后重新拉取广告，则传入needReload = true;
+		public showAppBox(successHandler: Laya.Handler, failedHandler: Laya.Handler = null, closeHandler: Laya.Handler = null, needReload: boolean = false):void
 		{
 			if (this._isLoadFailed) {
 				failedHandler && failedHandler.run();
@@ -123,7 +123,7 @@ module FatLayaHelper{
 			this._showFailedHandler = failedHandler;
 			this._closeHandler = closeHandler;
 
-			this._appBoxImpl.show(this._isLoadFailed === null);
+			this._appBoxImpl.show(this._isLoadFailed === null, needReload);
 		}
 	}
 }

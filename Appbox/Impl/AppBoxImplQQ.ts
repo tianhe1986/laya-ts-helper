@@ -5,6 +5,7 @@ module FatLayaHelper{
 	export class AppBoxImplQQ implements AppBoxImpl{
 
 		private _appBox:any = null;
+		private _needReload:boolean = false;
 		
 		public create(appBoxId:string):void
 		{
@@ -13,6 +14,10 @@ module FatLayaHelper{
 			});
 
 			this._appBox.onClose(() =>{
+				if(this._needReload){
+					AppBoxManager.instance.isLoadFailed = null;
+					this._needReload = false;
+				}
 				AppBoxManager.instance.closeHandler && AppBoxManager.instance.closeHandler.run();
 			});
 		}
@@ -29,8 +34,9 @@ module FatLayaHelper{
 			}
 		}
 
-		public show(needLoad: boolean = false):void
+		public show(needLoad: boolean = false, reload: boolean):void
 		{
+			this._needReload = reload;
 			if (this._appBox) {
 				if (needLoad) {
 					let loadPromise = this._appBox.load();

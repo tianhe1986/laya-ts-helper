@@ -5,7 +5,7 @@ module FatLayaHelper{
 	export interface AppBoxImpl{
 		create(appBoxId:string);
 		load();
-		show(needLoad: boolean);
+		show(needLoad: boolean, reload: boolean);
 		destroy();
 	}
 }
