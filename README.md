@@ -82,6 +82,44 @@ public showInterstitial(adId:string, successHandler: Laya.Handler, failedHandler
 
 `adId`是相应的广告ID，`successHandler`是展示成功后的回调， `failedHandler`是展示失败时的回调。
 
+
+# 盒子广告
+暂时只看到QQ平台支持盒子广告。使用步骤如下：
+1. 将`GlobalConfig.ts`和`Appbox`文件夹拷贝至项目源码目录中，建议新建一个`Helper`文件夹用于放置。
+2.  更改配置，有如下两项：
+    * `GlobalConfig.ts`。修改`platform`变量，用于指定使用的平台。
+    * `Appbox/AppboxConfig.ts`， 填写盒子广告ID`appBoxId`。`reloadInterval`是加载失败时，尝试重新加载的间隔时间，可根据需要进行调整。
+3. 在展示盒子广告之前，需要先初始化盒子广告
+```
+let loadSuccessHandler = XXXX;
+let loadFailedHandler = XXXX;
+
+FatLayaHelper.AppBoxManager.instance.start(loadSuccessHandler, loadFailedHandler);
+```
+
+start函数的定义如下:
+```
+public start(loadSuccessHandler: Laya.Handler = null, loadFailedHandler: Laya.Handler = null):void
+```
+
+`loadSuccessHandler`是盒子广告拉取成功时的回调函数，`loadFailedHandler`是盒子广告拉取失败时的回调函数。
+
+4. 在需要展示盒子广告的时候调用
+```
+let successHandler:Laya.Handler = XXX;
+let failHandler:Laya.Handler = XXX;
+let close Handle = XXX;
+
+FatLayaHelper.AppBoxManager.instance.showAppBox(successHandler, failHandler, closeHandler);
+```
+
+showAppBox函数定义如下:
+```
+public showAppBox(successHandler: Laya.Handler, failedHandler: Laya.Handler = null, closeHandler: Laya.Handler = null):void
+```
+
+其中`successHandler`是展示成功后的回调，`failedHandler`是展示失败后的回调，`closeHandler`是用户点击`关闭广告`按钮后的回调。
+
 # 录屏处理
 目前暂时只有头条和百度支持录屏。使用步骤如下：
 1. 将`GlobalConfig.ts`和`GameRecorder`文件夹拷贝至项目源码目录中，建议新建一个`Helper`文件夹用于放置。
