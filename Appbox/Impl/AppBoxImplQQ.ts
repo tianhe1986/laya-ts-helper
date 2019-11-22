@@ -52,6 +52,7 @@ module FatLayaHelper{
 						})
 						.catch((err) => {
 							AppBoxManager.instance.loadFailedHandler && AppBoxManager.instance.loadFailedHandler.run();
+							AppBoxManager.instance.showFailedsHandler && AppBoxManager.instance.showFailedsHandler.run();
 						});
 					} else {
 						AppBoxManager.instance.isLoadFailed = true;
