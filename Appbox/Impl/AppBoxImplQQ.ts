@@ -40,7 +40,7 @@ module FatLayaHelper{
 			if (this._appBox) {
 				if (needLoad) {
 					let loadPromise = this._appBox.load();
-					if (loadPromise) {
+					if (loadPromise) {	//预防出现返回值为空的情况
 						loadPromise.then(() => {
 							AppBoxManager.instance.loadSuccessHandler && AppBoxManager.instance.loadSuccessHandler.run();
 							this._appBox.show().then(()=>{
@@ -51,6 +51,7 @@ module FatLayaHelper{
 							})
 						})
 						.catch((err) => {
+							AppBoxManager.instance.isLoadFailed = true;
 							AppBoxManager.instance.loadFailedHandler && AppBoxManager.instance.loadFailedHandler.run();
 							AppBoxManager.instance.showFailedsHandler && AppBoxManager.instance.showFailedsHandler.run();
 						});
